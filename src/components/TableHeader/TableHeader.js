@@ -10,7 +10,8 @@ const TableHeader = (props) => {
         <th>Tickets Left</th>
         <th>Tickets Available</th>
         <th>Status</th>
-        <th>Purchase Amount</th>
+        <th>Price per Ticket €</th>
+        <th>Total Cost</th>
         <th>{/*Place holder for button*/}</th>
       </tr>
     </tbody>

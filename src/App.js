@@ -15,38 +15,51 @@ class App extends Component {
       queryDate: moment().format("YYYY-MM-DD"),
       showDate: moment().format("YYYY-MM-DD"),
       inventory: [],
+      isFetching: false,
     }
     this.setShowDate = this.setShowDate.bind(this);
     this.setQueryDate = this.setQueryDate.bind(this);
   }
 
   componentDidMount() {
+    this.setState({ isFetching:true });
     axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${this.state.queryDate}&showDate=${this.state.showDate}`)
       .then(res => {
         const inventory = res.data.inventory;
         this.setState({ inventory });
-      })
-  }
-
-  componentDidUpdate() {
-    axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${this.state.queryDate}&showDate=${this.state.showDate}`)
-      .then(res => {
-        const inventory = res.data.inventory;
-        this.setState({ inventory });
+        this.setState({ isFetching:false });
       })
   }
 
   setShowDate(date) {
     const showDate = date.format("YYYY-MM-DD");
     this.setState({ showDate });
+    this.setState({ isFetching:true });
+    axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${this.state.queryDate}&showDate=${showDate}`)
+      .then(res => {
+        const inventory = res.data.inventory;
+        this.setState({ inventory });
+        this.setState({ isFetching:false });
+      })
   }
 
   setQueryDate(date) {
     const queryDate = date.format("YYYY-MM-DD");
     this.setState({ queryDate });
+    this.setState({ isFetching:true });
+    axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${queryDate}&showDate=${this.state.showDate}`)
+      .then(res => {
+        const inventory = res.data.inventory;
+        this.setState({ inventory });
+        this.setState({ isFetching:false });
+      })
   }
 
   render() {
+    const tables = this.state.isFetching ?
+      (<div style={{textAlign:'center'}}><text>Loading...</text></div>) :
+      (<Tables inventory={this.state.inventory} showDate={this.state.showDate}/>)
+
     return (
       <Provider store={store}>
         <div style={{width:'100%'}}>
@@ -56,7 +69,7 @@ class App extends Component {
             setShowDate={this.setShowDate}
             queryDate={moment(this.state.queryDate)}
             setQueryDate={this.setQueryDate}/>
-          <Tables inventory={this.state.inventory}/>
+          {tables}
         </div>
       </Provider>
     );

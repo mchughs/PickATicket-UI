@@ -7,7 +7,8 @@ const Tables = (props) => {
   const tables = props.inventory.map((inventoryItem, i) => {
     return <Table key={i}
       genre={inventoryItem.genre}
-      shows={inventoryItem.shows}/>
+      shows={inventoryItem.shows}
+      showDate={props.showDate}/>
   })
 
   return (
