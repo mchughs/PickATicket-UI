@@ -4,10 +4,15 @@ import Table from '../Table/Table'
 import classes from './Tables.css'
 
 const Tables = (props) => {
+  const tables = props.inventory.map((inventoryItem, i) => {
+    return <Table key={i}
+      genre={inventoryItem.genre}
+      shows={inventoryItem.shows}/>
+  })
+
   return (
-    <div>
-      {/*return one table per genre*/}
-      <Table />
+    <div className={classes.Tables}>
+      {tables}
     </div>
   )
 }
