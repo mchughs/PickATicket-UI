@@ -24,7 +24,7 @@ class App extends Component {
   componentDidMount() {
     this.setState({ isFetching:true });
     // a proxy is set up in the package.json file to avoid CORS errors
-    axios.get(`/inventory?queryDate=${this.state.queryDate}&showDate=${this.state.showDate}`)
+    axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${this.state.queryDate}&showDate=${this.state.showDate}`)
       .then(res => {
         const inventory = res.data.inventory;
         this.setState({ inventory });
@@ -36,7 +36,7 @@ class App extends Component {
     const showDate = date.format("YYYY-MM-DD");
     this.setState({ showDate });
     this.setState({ isFetching:true });
-    axios.get(`/inventory?queryDate=${this.state.queryDate}&showDate=${showDate}`)
+    axios.get(`https://pick-a-ticket.herokuapp.com/inventory?queryDate=${this.state.queryDate}&showDate=${showDate}`)
       .then(res => {
         const inventory = res.data.inventory;
         this.setState({ inventory });
