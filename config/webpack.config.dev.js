@@ -261,12 +261,4 @@ module.exports = {
   performance: {
     hints: false,
   },
-  devServer: {
-    compress: true,
-    inline: true,
-    port: '3000',
-    allowedHosts: [
-        '.herokuapp.com'
-    ]
-  },
 };
