@@ -263,6 +263,10 @@ module.exports = {
   },
   devServer: {
     compress: true,
-    disableHostCheck: true,
-  }
+    inline: true,
+    port: '3000',
+    allowedHosts: [
+        '.herokuapp.com'
+    ]
+  },
 };
